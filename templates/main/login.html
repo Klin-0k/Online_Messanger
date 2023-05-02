@@ -1,0 +1,33 @@
+{% extends 'main/base_for_auth_pages.html' %}
+
+{% block title %} Login {% endblock %}
+{% block header %} Log In {% endblock %}
+{% block div_content %}
+    <h3>"..."</h3>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter your username" name="UserName">
+        {% if form.UserName.errors %}
+            <div class="form-group{% if form.UserName.errors %} has-error{% endif %}">
+                {% for error in form.UserName.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="password" placeholder="Enter your password" name="Password">
+        {% if form.Password.errors %}
+            <div class="form-group{% if form.Password.errors %} has-error{% endif %}">
+                {% for error in form.Password.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <div class="button_container">
+            <button class="MainButton">Log in</button>
+            <button type='button' onclick="window.location.href='{% url 'auth' %}'" class="MainButton">Back</button>
+        </div>
+        <br>
+    </form>
+{% endblock %}

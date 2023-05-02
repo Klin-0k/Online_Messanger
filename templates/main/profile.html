@@ -1,0 +1,108 @@
+{% extends 'main/base_for_main_pages.html' %}
+
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='{% static 'main/css/profile.css' %}'>
+{% endblock %}
+
+{% block Name %}
+    <div>
+        <h1>Profile</h1>
+    </div>
+{% endblock %}
+
+{% block center %}
+    <div class="SettingsContainer">
+        <form method="post" action="{% url 'profile' UserName=user.UserName %}">
+            {% csrf_token %}
+            <label for="FirstName">First name:</label>
+            <input type="text" placeholder="First name" id="FirstName" name="FirstName" value="{{ user.FirstName }}">
+            {% if form.FirstName.errors %}
+                <div class="form-group{% if form.FirstName.errors %} has-error{% endif %}">
+                    {% for error in form.FirstName.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <label for="SecondName">Second name:</label>
+            <input type="text" placeholder="Second name" id="SecondName" name="SecondName" value="{{ user.SecondName }}">
+            {% if form.SecondName.errors %}
+                <div class="form-group{% if form.SecondName.errors %} has-error{% endif %}">
+                    {% for error in form.SecondName.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <label for="UserName">Username:</label>
+            <input type="text" placeholder="Username" id="UserName" name="UserName" value="{{ user.UserName }}">
+            {% if form.UserName.errors %}
+                <div class="form-group{% if form.UserName.errors %} has-error{% endif %}">
+                    {% for error in form.UserName.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <label for="Email">Email:</label>
+            <input type="text" placeholder="Email" id="Email" name="Email" value="{{ user.Email }}">
+            {% if form.Email.errors %}
+                <div class="form-group{% if form.Email.errors %} has-error{% endif %}">
+                    {% for error in form.Email.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <label for="Birthday">Date of Birth:</label>
+            <input type="date" id="Birthday" name="Birthday" value="{{ user.Birthday|date:'Y-m-d' }}">
+            {% if form.Birthday.errors %}
+                <div class="form-group{% if form.Birthday.errors %} has-error{% endif %}">
+                    {% for error in form.Birthday.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <label for="ChangePassword">Change password:</label>
+            <input type="password" placeholder="Current password" id="ChangePassword" name="CurrentPassword">
+            {% if form.CurrentPassword.errors %}
+                <div class="form-group{% if form.CurrentPassword.errors %} has-error{% endif %}">
+                    {% for error in form.CurrentPassword.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <input type="password" placeholder="New password" id="ChangePassword" name="NewPassword">
+            {% if form.NewPassword.errors %}
+                <div class="form-group{% if form.NewPassword.errors %} has-error{% endif %}">
+                    {% for error in form.NewPassword.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <input type="password" placeholder="Confirm password" id="ChangePassword" name="ConfirmPassword">
+            {% if form.ConfirmPassword.errors %}
+                <div class="form-group{% if form.ConfirmPassword.errors %} has-error{% endif %}">
+                    {% for error in form.ConfirmPassword.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <div class="button_container">
+                <button class="MainButton">Save</button>
+                <button type='button' onclick="window.location.href='{% url 'profile' UserName=user.UserName %}'"
+                        class="MainButton">Cancel
+                </button>
+            </div>
+            <br>
+        </form>
+    </div>
+{% endblock %}

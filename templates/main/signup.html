@@ -1,0 +1,96 @@
+{% extends 'main/base_for_auth_pages.html' %}
+
+{% block title %} Sign Up {% endblock %}
+{% block header %} Sign Up {% endblock %}
+{% block div_content %}
+    <h3>Create your account</h3>
+    {% if form.errors %}
+        <div>
+            <strong>Oops!</strong> There were some errors:
+        </div><br>
+    {% endif %}
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="First name" name="FirstName">
+        {% if form.FirstName.errors %}
+            <div class="form-group{% if form.FirstName.errors %} has-error{% endif %}">
+                {% for error in form.FirstName.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="text" placeholder="Second name" name="SecondName">
+        {% if form.SecondName.errors %}
+            <div class="form-group{% if form.SecondName.errors %} has-error{% endif %}">
+                {% for error in form.SecondName.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="text" placeholder="Username" name="UserName">
+        {% if form.UserName.errors %}
+            <div class="form-group{% if form.UserName.errors %} has-error{% endif %}">
+                {% for error in form.UserName.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="text" placeholder="Email" name="Email">
+        {% if form.Email.errors %}
+            <div class="form-group{% if form.Email.errors %} has-error{% endif %}">
+                {% for error in form.Email.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <label for="Birthday">Date of Birth</label>
+        <input type="date" id="Birthday" name="Birthday">
+        {% if form.Birthday.errors %}
+            <div class="form-group{% if form.Birthday.errors %} has-error{% endif %}">
+                {% for error in form.Birthday.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="password" placeholder="Password" name="Password">
+        {% if form.Password.errors %}
+            <div class="form-group{% if form.Password.errors %} has-error{% endif %}">
+                {% for error in form.Password.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <input type="password" placeholder="Confirm password" name="ConfirmPassword">
+        {% if form.ConfirmPassword.errors %}
+            <div class="form-group{% if form.ConfirmPassword.errors %} has-error{% endif %}">
+                {% for error in form.ConfirmPassword.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <div>
+            <input type="checkbox" id="Terms" name="Terms">
+            <label for="Terms">I agree with <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">terms</a> </label>
+        </div>
+        {% if form.Terms.errors %}
+            <div class="form-group{% if form.Terms.errors %} has-error{% endif %}">
+                {% for error in form.Terms.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        <div class="button_container">
+            <button class="MainButton">Sign Up</button>
+            <button type='button' onclick="window.location.href='{% url 'auth' %}'" class="MainButton">Back</button>
+        </div>
+        <br>
+    </form>
+{% endblock %}
