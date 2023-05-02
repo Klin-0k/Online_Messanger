@@ -21,9 +21,9 @@
             <label for="FirstName">First name:</label>
             <input type="text" placeholder="First name" id="FirstName" name="FirstName" value="{{ user.FirstName }}">
             {% if form.FirstName.errors %}
-                <div class="form-group{% if form.FirstName.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.FirstName.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -31,9 +31,9 @@
             <label for="SecondName">Second name:</label>
             <input type="text" placeholder="Second name" id="SecondName" name="SecondName" value="{{ user.SecondName }}">
             {% if form.SecondName.errors %}
-                <div class="form-group{% if form.SecondName.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.SecondName.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -41,9 +41,9 @@
             <label for="UserName">Username:</label>
             <input type="text" placeholder="Username" id="UserName" name="UserName" value="{{ user.UserName }}">
             {% if form.UserName.errors %}
-                <div class="form-group{% if form.UserName.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.UserName.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -51,9 +51,9 @@
             <label for="Email">Email:</label>
             <input type="text" placeholder="Email" id="Email" name="Email" value="{{ user.Email }}">
             {% if form.Email.errors %}
-                <div class="form-group{% if form.Email.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.Email.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -61,9 +61,9 @@
             <label for="Birthday">Date of Birth:</label>
             <input type="date" id="Birthday" name="Birthday" value="{{ user.Birthday|date:'Y-m-d' }}">
             {% if form.Birthday.errors %}
-                <div class="form-group{% if form.Birthday.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.Birthday.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -71,27 +71,27 @@
             <label for="ChangePassword">Change password:</label>
             <input type="password" placeholder="Current password" id="ChangePassword" name="CurrentPassword">
             {% if form.CurrentPassword.errors %}
-                <div class="form-group{% if form.CurrentPassword.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.CurrentPassword.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
             <br>
             <input type="password" placeholder="New password" id="ChangePassword" name="NewPassword">
             {% if form.NewPassword.errors %}
-                <div class="form-group{% if form.NewPassword.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.NewPassword.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
             <br>
             <input type="password" placeholder="Confirm password" id="ChangePassword" name="ConfirmPassword">
             {% if form.ConfirmPassword.errors %}
-                <div class="form-group{% if form.ConfirmPassword.errors %} has-error{% endif %}">
+                <div class="error_block">
                     {% for error in form.ConfirmPassword.errors %}
-                        <span class="help-block">{{ error }}</span>
+                        <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -103,6 +103,11 @@
                 </button>
             </div>
             <br>
+        </form>
+        <br>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type='submit' class="MainButton">Log Out</button>
         </form>
     </div>
 {% endblock %}

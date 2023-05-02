@@ -6,6 +6,9 @@ from .models import User, Message
 class CreateUserForm(forms.ModelForm):
     Terms = forms.BooleanField(required=False)
     ConfirmPassword = forms.CharField()
+    FirstName = forms.CharField(required=False)
+    SecondName = forms.CharField(required=False)
+    UserName = forms.CharField(required=False)
 
     class Meta:
         model = User
@@ -75,6 +78,9 @@ class ChangeProfileForm(forms.ModelForm):
     CurrentPassword = forms.CharField(required=False)
     NewPassword = forms.CharField(required=False)
     ConfirmPassword = forms.CharField(required=False)
+    FirstName = forms.CharField(required=False)
+    SecondName = forms.CharField(required=False)
+    UserName = forms.CharField(required=False)
 
     class Meta:
         model = User
@@ -90,12 +96,13 @@ class ChangeProfileForm(forms.ModelForm):
             self.add_error('UserName', User.username_rules_description())
         if User.objects.filter(
                 UserName=cleaned_data.get('UserName')).exists() and self.current_user.UserName != cleaned_data.get(
-                'UserName'):
+            'UserName'):
             self.add_error('UserName', 'This username is already taken!')
         if User.objects.filter(
                 Email=cleaned_data.get('Email')).exists() and self.current_user.Email != cleaned_data.get('Email'):
             self.add_error('Email', 'User with this Email already exists!')
-        if cleaned_data.get('CurrentPassword') or cleaned_data.get('NewPassword') or cleaned_data.get('ConfirmPassword'):
+        if cleaned_data.get('CurrentPassword') or cleaned_data.get('NewPassword') or cleaned_data.get(
+                'ConfirmPassword'):
             if self.current_user.Password != cleaned_data.get(
                     'CurrentPassword'):
                 self.add_error('CurrentPassword', 'Wrong password!')

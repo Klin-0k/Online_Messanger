@@ -48,27 +48,6 @@
     margin-bottom: 30px;
 }
 
-.button_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-button {
-    font-size: 24px;
-    padding: 10px 20px;
-    margin: 20px;
-    border-radius: 10px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #3e8e41;
-}
-
 .block_main a {
     color: darkcyan;
     display: inline

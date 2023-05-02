@@ -116,6 +116,27 @@ a:active {
     text-shadow: none;
 }
 
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
 .MainButton {
     display: inline-block;
     padding: 10px 20px;
@@ -201,6 +222,7 @@ a:active {
 }
 
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,7 +230,7 @@ form {
 
 input[type="text"],
 input[type="password"] {
-    width: 100%;
+    width: 40%;
     padding: 12px 20px;
     margin: 8px 0;
     border: 1px solid #ccc;
@@ -226,7 +248,7 @@ input[type="password"]:focus {
 }
 
 input[type="date"] {
-    width: 100%;
+    width: 40%;
     padding: 12px 20px;
     margin: 8px 0;
     border: 1px solid #ccc;
@@ -244,4 +266,12 @@ input[type="checkbox"] {
 
 span {
     color: firebrick;
+    text-align: center;
+}
+
+.error_block {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

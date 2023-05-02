@@ -15,22 +15,28 @@ def index(request, UserName=''):
 
 
 def auth(request):
+    if request.session.get('CurrentUserName'):
+        return redirect(reverse('home'))
     return render(request, 'main/auth.html')
 
 
 def login(request):
+    if request.session.get('CurrentUserName'):
+        return redirect(reverse('home'))
     if request.method == 'POST':
         form = LogInForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             request.session['CurrentUserName'] = user.UserName
-            return redirect(reverse('messages', args=[user.UserName]))
+            return redirect(reverse('home'))
     else:
         form = LogInForm()
     return render(request, 'main/login.html', {'form': form})
 
 
 def signup(request):
+    if request.session.get('CurrentUserName'):
+        return redirect(reverse('home'))
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -38,7 +44,7 @@ def signup(request):
             user.Age = User.calculate_age(form.cleaned_data['Birthday'])
             user.save()
             request.session['CurrentUserName'] = user.UserName
-            return redirect(reverse('messages', args=[user.UserName]))
+            return redirect(reverse('home'))
     else:
         form = CreateUserForm()
     return render(request, 'main/signup.html', {'form': form})

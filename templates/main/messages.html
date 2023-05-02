@@ -24,9 +24,11 @@
                         {% else %}
                             action="{% url 'messages' UserName=user.UserName %}">
                         {% endif %}
-                <input type="text" placeholder="Search" name="SearchedChat" value="{{ request.GET.SearchedChat }}"
-                       id="SearchStr">
-                <button type="submit">Search</button>
+                <div>
+                    <input type="text" placeholder="Search" name="SearchedChat" value="{{ request.GET.SearchedChat }}"
+                           id="SearchStr">
+                    <button type="submit">Search</button>
+                </div>
                 </form>
             </div>
             <br>
@@ -59,15 +61,14 @@
                                 <strong>Oops!</strong>
                             </div>
                             {% if form.Text.errors %}
-                                <div class="form-group{% if form.Text.errors %} has-error{% endif %}">
+                                <div>
                                     {% for error in form.Text.errors %}
-                                        <span class="help-block">{{ error }}</span>
+                                        <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
                             {% endif %}
                             <br>
                         {% endif %}
-                        <label for="Text">Text:</label>
                         <textarea id="Text" name="Text"></textarea>
                     </div>
                     <br>
