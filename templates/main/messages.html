@@ -57,24 +57,10 @@
             </div>
             <div class="TextareaDiv">
                     {% if current_chat %}
-                        <form method="post">
+                        <form method="post" class="FormForMessages">
                             {% csrf_token %}
-<!--                                {% if form.errors %}-->
-<!--                                    <div>-->
-<!--                                        <strong>Oops!</strong>-->
-<!--                                    </div>-->
-<!--                                    {% if form.Text.errors %}-->
-<!--                                        <div>-->
-<!--                                            {% for error in form.Text.errors %}-->
-<!--                                                <span>{{ error }}</span>-->
-<!--                                            {% endfor %}-->
-<!--                                        </div>-->
-<!--                                    {% endif %}-->
-<!--                                    <br>-->
-<!--                                {% endif %}-->
-                                <textarea placeholder="Message" id="Text" name="Text" {% if form.errors %} class="InvalidTextarea" {% endif %}></textarea>
-                            <br>
-                            <button type="submit" class="MainButton">Send</button>
+                            <textarea placeholder="Message" id="Text" name="Text" {% if form.errors %} class="InvalidTextarea" {% endif %}></textarea>
+                            <div class="SendButtonDiv"><button type="submit" class="MainButton">Send</button></div>
                         </form>
                     {% endif %}
             </div>

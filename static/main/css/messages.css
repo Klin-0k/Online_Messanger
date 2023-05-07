@@ -31,7 +31,7 @@
     flex-direction: column;
     background-color: #fff;
     height: 100%;
-    width: 50%;
+    width: 60%;
 }
 
 
@@ -41,7 +41,7 @@
     background-color: #fff;
     padding: 20px;
     overflow-y: auto;
-    height: 70%;
+    height: 85%;
 }
 
 .ChatMessagesContainer::-webkit-scrollbar {
@@ -58,9 +58,8 @@
     background-color: #555;
 }
 
-
 .Message {
-  max-width: 60%;
+  max-width: 55%;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -79,23 +78,25 @@
   color: whitesmoke;
 }
 
-form {
+.FormForMessages {
     height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
 }
 
 .TextareaDiv {
   /*margin-top: 5%;*/
   width: 100%;
-  height: 50%;
+  height: 15%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 textarea {
-  margin-top: 5%;
-  width: 60%;
-  height: 100%;
+  width: 70%;
+  height: 30%;
   padding: 10px;
   font-size: 16px;
   border-radius: 30px;
@@ -111,4 +112,10 @@ textarea:focus {
 
 .InvalidTextarea {
   border-color: red;
+}
+
+.SendButtonDiv {
+    height: 30%;
+    display: flex;
+    align-items: center;
 }

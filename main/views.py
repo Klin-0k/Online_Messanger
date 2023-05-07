@@ -91,10 +91,10 @@ def messages(request, UserName, ChatName=None):
                     text = request.POST['Text']
                     Message.objects.create(Sender=user, Recipient=chat, Text=text)
                     return redirect(reverse('messages', args=[user.UserName, ChatName]))
-                else:
-                    print(form.errors)
-                    for i in form.errors:
-                        print(i)
+                # else:
+                #     print(form.errors)
+                #     for i in form.errors:
+                #         print(i)
             else:
                 form = CreateMessageForm()
             return render(request, 'main/messages.html', {'user': user, 'current_chat': chat, 'chats': chats, 'messages': user_messages, 'form': form, 'search_res': search_res})
