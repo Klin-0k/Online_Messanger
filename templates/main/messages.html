@@ -44,37 +44,46 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <div class="ChatMessagesContainer">
-            {% if messages %}
-                {% for message in messages %}
-                    {{ message.Sender }}: {{ message.Text }}
-                    <br>
-                {% endfor %}
-                <br>
-            {% endif %}
-            {% if current_chat %}
-                <form method="post">
-                    {% csrf_token %}
-                    <div>
-                        {% if form.errors %}
-                            <div>
-                                <strong>Oops!</strong>
-                            </div>
-                            {% if form.Text.errors %}
-                                <div>
-                                    {% for error in form.Text.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
+        <div class="ChatMessagesAndTextAreaContainer">
+            <div class="ChatMessagesContainer">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="Message {% if message.Sender == user %}SenderMessage{% else %}ReceiverMessage{% endif %}">
+                            {{ message.Text }}
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="TextareaDiv">
+                    {% if current_chat %}
+                        <form method="post">
+                            {% csrf_token %}
+<!--                                {% if form.errors %}-->
+<!--                                    <div>-->
+<!--                                        <strong>Oops!</strong>-->
+<!--                                    </div>-->
+<!--                                    {% if form.Text.errors %}-->
+<!--                                        <div>-->
+<!--                                            {% for error in form.Text.errors %}-->
+<!--                                                <span>{{ error }}</span>-->
+<!--                                            {% endfor %}-->
+<!--                                        </div>-->
+<!--                                    {% endif %}-->
+<!--                                    <br>-->
+<!--                                {% endif %}-->
+                                <textarea placeholder="Message" id="Text" name="Text" {% if form.errors %} class="InvalidTextarea" {% endif %}></textarea>
                             <br>
-                        {% endif %}
-                        <textarea id="Text" name="Text"></textarea>
-                    </div>
-                    <br>
-                    <button type="submit" class="MainButton">Send</button>
-                </form>
-            {% endif %}
+                            <button type="submit" class="MainButton">Send</button>
+                        </form>
+                    {% endif %}
+            </div>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            var ChatMessagesContainer = document.querySelector('.ChatMessagesContainer');
+            ChatMessagesContainer.scrollTop = ChatMessagesContainer.scrollHeight;
+        };
+    </script>
 {% endblock %}
