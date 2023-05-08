@@ -1,0 +1,12 @@
+{% extends 'main/base_for_auth_pages.html' %}
+
+{% block title %} Welcome {% endblock %}
+{% block header %} Welcome {% endblock %}
+{% block div_content %}
+    <h3>Welcome to "..."</h3>
+    <h3>Log in with your account or create it to continue</h3>
+    <div class="button_container">
+        <button type='button' onclick="window.location.href='{% url 'login' %}'" class="MainButton">Log in</button>
+        <button type='button' onclick="window.location.href='{% url 'signup' %}'" class="MainButton">Sign up</button>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+.top_block {
+    background-color: darkslateblue;
+    /*color: #fff;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.icons_block {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.icons_block a {
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center_block {
+    height: 80%;
+}

@@ -1,0 +1,75 @@
+{% extends 'main/base_for_main_pages.html' %}
+
+{% load static %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='{% static 'main/css/messages.css' %}'>
+{% endblock %}
+
+{% block Name %}
+    <div>
+        <h1>Messages</h1>
+    </div>
+{% endblock %}
+
+{% block center %}
+    <div class="MainContainer">
+        <div class="ChatsContainer">
+            <div class="search-container">
+                <form method="GET"
+                        {% if current_chat %}
+                      action="{% url 'messages' UserName=user.UserName ChatName=current_chat.UserName %}">
+                        {% else %}
+                            action="{% url 'messages' UserName=user.UserName %}">
+                        {% endif %}
+                <div>
+                    <input type="text" placeholder="Search" name="SearchedChat" value="{{ request.GET.SearchedChat }}"
+                           id="SearchStr">
+                    <button type="submit">Search</button>
+                </div>
+                </form>
+            </div>
+            <br>
+            {% if search_res %}
+                {% for chat in search_res %}
+                    <a class="chat"
+                       href="{% url 'messages' UserName=user.UserName ChatName=chat.UserName %}">{{ chat }}</a>
+                {% endfor %}
+            {% else %}
+                {% for chat in chats %}
+                    <a class="chat"
+                       href="{% url 'messages' UserName=user.UserName ChatName=chat.UserName %}">{{ chat }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="ChatMessagesAndTextAreaContainer">
+            <div class="ChatMessagesContainer">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="Message {% if message.Sender == user %}SenderMessage{% else %}ReceiverMessage{% endif %}">
+                            {{ message.Text }}
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="TextareaDiv">
+                    {% if current_chat %}
+                        <form method="post" class="FormForMessages">
+                            {% csrf_token %}
+                            <textarea placeholder="Message" id="Text" name="Text" {% if form.errors %} class="InvalidTextarea" {% endif %}></textarea>
+                            <div class="SendButtonDiv"><button type="submit" class="MainButton">Send</button></div>
+                        </form>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            var ChatMessagesContainer = document.querySelector('.ChatMessagesContainer');
+            ChatMessagesContainer.scrollTop = ChatMessagesContainer.scrollHeight;
+        };
+    </script>
+{% endblock %}
