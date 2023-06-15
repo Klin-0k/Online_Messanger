@@ -1,4 +1,4 @@
-# Python_2023_Project_2
+# Online_Messanger
 
 ## About: 
 This is the online messenger in which users can register and exchange messages with other users, the site has a beautiful and intuitive interface that is easy to understand
