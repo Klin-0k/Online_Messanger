@@ -16,9 +16,8 @@ test:
   image: python:3-alpine
   stage: test
   script:
-    - echo "to do test"
-  tags:
-    - docker
+    - pip install requirements
+    - pytest tests.py
 
 build:
   stage: build
