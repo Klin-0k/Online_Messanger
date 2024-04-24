@@ -16,7 +16,7 @@ test:
   image: python:3-alpine
   stage: test
   script:
-    - pip install requirements
+    - pip install requirements.txt
     - pytest tests.py
 
 build:
