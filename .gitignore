@@ -2,3 +2,7 @@ venv
 .idea
 __pycache__
 password.py
+docker-compose.yml
+.env
+postgres_data
+*DS_Store
