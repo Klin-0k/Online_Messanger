@@ -1,0 +1,30 @@
+stages:
+  - test
+  - build
+  - deploy
+
+django tests:
+  image: python:3-alpine
+  stage: test
+  script:
+    - echo "to do test"
+  tags:
+    - ubuntu
+
+
+build docker:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - echo "to do build"
+  needs:
+    - ["django tests"]
+  tags:
+    - ubuntu
+
+deploy to prod:
+  stage: deploy
+  script:
+    - echo "to do deploy"
