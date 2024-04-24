@@ -25,7 +25,19 @@ build:
   services:
     - docker:dind
   script:
-    - echo "to do build"
+    - docker login -u gitlab-ci-token -P ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
+# rule for master-branch
+    - if [[${CI_COMMIT_BRANCH} = ${CI_DEFAULT_BRANCH}]]; then
+          docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY _IMAGE}:latest;
+          docker push ${CI_REGISTRY_IMAGE}:latest; fi
+# rule for branch and tags
+    - if Il -z "${CI_COMMIT_TAG}" 11; then
+          docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG};
+      else
+          docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
+          docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
+      fi
   needs:
     - ["test"]
   tags:
@@ -34,4 +46,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "to do deploy"
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker rm -f ${CI_PROJECT_NAME} || true
+    - docker run -d —name ${CI_PROJECT_NAME} -P 80:8000 -v db:/code/db ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
