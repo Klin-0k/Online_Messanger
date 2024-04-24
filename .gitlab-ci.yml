@@ -1,9 +1,18 @@
 stages:
+  - lint
   - test
   - build
   - deploy
 
-django tests:
+lint:
+  stage: lint
+  image: python:3.9
+  before_script:
+    - pip install black
+  script:
+    - black .
+
+test:
   image: python:3-alpine
   stage: test
   script:
@@ -11,8 +20,7 @@ django tests:
   tags:
     - docker
 
-
-build docker:
+build:
   stage: build
   image: docker:stable
   services:
@@ -24,7 +32,7 @@ build docker:
   tags:
     - docker
 
-deploy to prod:
+deploy:
   stage: deploy
   script:
     - echo "to do deploy"
