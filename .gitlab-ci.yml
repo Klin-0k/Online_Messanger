@@ -9,7 +9,7 @@ django tests:
   script:
     - echo "to do test"
   tags:
-    - ubuntu
+    - docker
 
 
 build docker:
@@ -22,7 +22,7 @@ build docker:
   needs:
     - ["django tests"]
   tags:
-    - ubuntu
+    - docker
 
 deploy to prod:
   stage: deploy
