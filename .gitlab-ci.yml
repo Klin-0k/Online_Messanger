@@ -28,7 +28,7 @@ build:
   script:
     - echo "to do build"
   needs:
-    - ["django tests"]
+    - ["test"]
   tags:
     - docker
 
