@@ -55,6 +55,8 @@ deploy:
     - docker pull $MESSENGER_IMAGE
     - docker-compose down || true
     - docker-compose up -d
+  tags:
+    - docker
   environment:
     name: production
     url: http://messenger.klinok.pro
