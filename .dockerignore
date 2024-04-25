@@ -12,4 +12,4 @@ postgres_data
 .pytest_cache
 venv
 README.md
-__pycache__
+*__pycache__
