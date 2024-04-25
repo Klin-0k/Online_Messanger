@@ -11,6 +11,8 @@ lint:
     - pip install black
   script:
     - black .
+  tags:
+    - messenger
 
 test:
   image: python:3-alpine
@@ -18,6 +20,8 @@ test:
   script:
     - pip install -r requirements.txt
     - pytest tests.py
+  tags:
+    - messenger
 
 build:
   stage: build
@@ -44,7 +48,7 @@ build:
   needs:
     - ["test"]
   tags:
-    - docker
+    - messenger
 
 deploy:
   stage: deploy
@@ -56,7 +60,7 @@ deploy:
     - docker-compose down || true
     - docker-compose up -d
   tags:
-    - docker
+    - messenger
   variables:
     SECRET_KEY: $SECRET_KEY
     HOST: $HOST
