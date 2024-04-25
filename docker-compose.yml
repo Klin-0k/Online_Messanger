@@ -31,7 +31,6 @@ services:
       - '3333:3333'
     env_file:
       - .env
-      - /.penv
 
 volumes:
   postgres_data:
