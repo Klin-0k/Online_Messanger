@@ -16,6 +16,7 @@ def minus(a, b):
 def test_main_question():
     assert main_question() == 42
 
+
 def test_plus():
     assert plus(1, 2) == 3
     assert plus(-1, -2) == -3
