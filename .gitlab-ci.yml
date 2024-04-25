@@ -58,6 +58,6 @@ deploy:
   environment:
     name: production
     url: http://messenger.klinok.pro
-  only:
-    - main
+#  only:
+#    - main
   when: manual
