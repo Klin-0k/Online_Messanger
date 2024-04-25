@@ -5,7 +5,7 @@ services:
     image: ${POSTGRES_DB_IMAGE}
     container_name: ${POSTGRES_DB_CONTAINER}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /app/postgres_data:/var/lib/postgresql/data
     ports:
       - '2222:5432'
     restart: always
@@ -33,5 +33,5 @@ services:
       - .env
       - /app/.penv
 
-volumes:
-  postgres_data:
+#volumes:
+#  postgres_data:
