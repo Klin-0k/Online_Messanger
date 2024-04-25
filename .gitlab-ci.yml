@@ -57,6 +57,9 @@ deploy:
     - docker-compose up -d
   tags:
     - docker
+  variables:
+    SECRET_KEY: $SECRET_KEY
+    HOST: $HOST
   environment:
     name: production
     url: http://messenger.klinok.pro

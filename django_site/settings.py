@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-import password
+is_password_in_file = os.path.exists('password.py')
+
+if is_password_in_file:
+    import password
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = password.SECRET_KEY
+if is_password_in_file:
+    SECRET_KEY = password.SECRET_KEY
+else:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = password.ALLOWED_HOSTS
+if is_password_in_file:
+    ALLOWED_HOSTS = password.ALLOWED_HOSTS
+else:
+    ALLOWED_HOSTS = [os.environ.get('HOST')]
 
 
 # Application definition
