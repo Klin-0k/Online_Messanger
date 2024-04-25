@@ -55,6 +55,8 @@ deploy:
     - docker pull $MESSENGER_IMAGE
     - docker-compose down || true
     - docker-compose up -d
+    - pwd
+    - ls -la
   tags:
     - docker
   variables:
