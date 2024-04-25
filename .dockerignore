@@ -3,8 +3,8 @@ Dockerfile
 .gitlab-ci.yml
 docker-compose.yml
 postgres_data
-static
-templates
+#static
+#templates
 *.DS_Store
 .idea
 .git
