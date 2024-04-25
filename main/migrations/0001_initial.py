@@ -5,26 +5,76 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('UserName', models.CharField(default='', max_length=100, verbose_name='UserName')),
-                ('Email', models.CharField(default='', max_length=100, verbose_name='Email')),
-                ('FirstName', models.CharField(default='', max_length=100, verbose_name='FirstName')),
-                ('SecondName', models.CharField(default='', max_length=100, verbose_name='SecondName')),
-                ('Birthday', models.DateField(default=django.utils.timezone.now, verbose_name='Birthday')),
-                ('RegisterDate', models.DateTimeField(default=django.utils.timezone.now, verbose_name='RegisterDate')),
-                ('Age', models.IntegerField(default=0, verbose_name='Age')),
-                ('Password', models.CharField(default='', max_length=100, verbose_name='Password')),
-                ('Smoking', models.CharField(choices=[('Neut', 'Neutral'), ('Neg', 'Negative'), ('Pos', 'Positive')], default=('Neut', 'Neutral'), max_length=256)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "UserName",
+                    models.CharField(
+                        default="", max_length=100, verbose_name="UserName"
+                    ),
+                ),
+                (
+                    "Email",
+                    models.CharField(default="", max_length=100, verbose_name="Email"),
+                ),
+                (
+                    "FirstName",
+                    models.CharField(
+                        default="", max_length=100, verbose_name="FirstName"
+                    ),
+                ),
+                (
+                    "SecondName",
+                    models.CharField(
+                        default="", max_length=100, verbose_name="SecondName"
+                    ),
+                ),
+                (
+                    "Birthday",
+                    models.DateField(
+                        default=django.utils.timezone.now, verbose_name="Birthday"
+                    ),
+                ),
+                (
+                    "RegisterDate",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="RegisterDate"
+                    ),
+                ),
+                ("Age", models.IntegerField(default=0, verbose_name="Age")),
+                (
+                    "Password",
+                    models.CharField(
+                        default="", max_length=100, verbose_name="Password"
+                    ),
+                ),
+                (
+                    "Smoking",
+                    models.CharField(
+                        choices=[
+                            ("Neut", "Neutral"),
+                            ("Neg", "Negative"),
+                            ("Pos", "Positive"),
+                        ],
+                        default=("Neut", "Neutral"),
+                        max_length=256,
+                    ),
+                ),
             ],
         ),
     ]

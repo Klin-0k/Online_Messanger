@@ -10,15 +10,16 @@ lint:
   before_script:
     - pip install black
   script:
-    - black .
+    - black --check .
   tags:
     - messenger
 
 test:
   image: python:3-alpine
   stage: test
-  script:
+  before_script:
     - pip install -r requirements.txt
+  script:
     - pytest tests.py
   tags:
     - messenger

@@ -21,6 +21,7 @@ def test_plus():
     assert plus(-1, -2) == -3
     assert plus(0, 0) == 0
 
+
 def test_minus():
     assert minus(1, 2) == -1
     assert minus(-1, -2) == 1
