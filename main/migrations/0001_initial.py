@@ -24,9 +24,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "UserName",
-                    models.CharField(
-                        default="", max_length=100, verbose_name="UserName"
-                    ),
+                    models.CharField(default="", max_length=100, verbose_name="UserName"),
                 ),
                 (
                     "Email",
@@ -34,34 +32,24 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "FirstName",
-                    models.CharField(
-                        default="", max_length=100, verbose_name="FirstName"
-                    ),
+                    models.CharField(default="", max_length=100, verbose_name="FirstName"),
                 ),
                 (
                     "SecondName",
-                    models.CharField(
-                        default="", max_length=100, verbose_name="SecondName"
-                    ),
+                    models.CharField(default="", max_length=100, verbose_name="SecondName"),
                 ),
                 (
                     "Birthday",
-                    models.DateField(
-                        default=django.utils.timezone.now, verbose_name="Birthday"
-                    ),
+                    models.DateField(default=django.utils.timezone.now, verbose_name="Birthday"),
                 ),
                 (
                     "RegisterDate",
-                    models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="RegisterDate"
-                    ),
+                    models.DateTimeField(default=django.utils.timezone.now, verbose_name="RegisterDate"),
                 ),
                 ("Age", models.IntegerField(default=0, verbose_name="Age")),
                 (
                     "Password",
-                    models.CharField(
-                        default="", max_length=100, verbose_name="Password"
-                    ),
+                    models.CharField(default="", max_length=100, verbose_name="Password"),
                 ),
                 (
                     "Smoking",

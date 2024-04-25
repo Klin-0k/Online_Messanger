@@ -9,9 +9,7 @@ def index(request, UserName=""):
         if request.session.get("CurrentUserName") is None:
             return render(request, "main/auth.html")
         else:
-            return redirect(
-                reverse("messages", args=[request.session.get("CurrentUserName")])
-            )
+            return redirect(reverse("messages", args=[request.session.get("CurrentUserName")]))
     else:
         return redirect(reverse("messages", args=[UserName]))
 
@@ -61,9 +59,7 @@ def contact(request):
 
 
 def friends(request, UserName):
-    if request.session.get("CurrentUserName") is None or str(
-        request.session.get("CurrentUserName")
-    ) != str(UserName):
+    if request.session.get("CurrentUserName") is None or str(request.session.get("CurrentUserName")) != str(UserName):
         return HttpResponseForbidden("You do not have permission to access this page.")
     user = get_object_or_404(User, UserName=UserName)
     return render(request, "main/friends.html", {"user": user})
@@ -71,14 +67,10 @@ def friends(request, UserName):
 
 def messages(request, UserName, ChatName=None):
     SearchedChat = request.GET.get("SearchedChat")
-    if request.session.get("CurrentUserName") is None or str(
-        request.session.get("CurrentUserName")
-    ) != str(UserName):
+    if request.session.get("CurrentUserName") is None or str(request.session.get("CurrentUserName")) != str(UserName):
         return HttpResponseForbidden("You do not have permission to access this page.")
     user = get_object_or_404(User, UserName=UserName)
-    messages_ = Message.objects.filter(Sender=user) | Message.objects.filter(
-        Recipient=user
-    )
+    messages_ = Message.objects.filter(Sender=user) | Message.objects.filter(Recipient=user)
     chats = set([m.Sender for m in messages_] + [m.Recipient for m in messages_])
     if user in chats:
         chats.remove(user)
@@ -91,12 +83,8 @@ def messages(request, UserName, ChatName=None):
     if ChatName is not None:
         if User.objects.filter(UserName=ChatName).exists() and UserName != ChatName:
             chat = get_object_or_404(User, UserName=ChatName)
-            user_messages = (
-                Message.objects.filter(Sender=user)
-                & Message.objects.filter(Recipient=chat)
-            ) | (
-                Message.objects.filter(Sender=chat)
-                & Message.objects.filter(Recipient=user)
+            user_messages = (Message.objects.filter(Sender=user) & Message.objects.filter(Recipient=chat)) | (
+                Message.objects.filter(Sender=chat) & Message.objects.filter(Recipient=user)
             )
             if request.method == "POST":
                 form = CreateMessageForm(request.POST)
@@ -140,9 +128,7 @@ def messages(request, UserName, ChatName=None):
 
 
 def profile(request, UserName):
-    if request.session.get("CurrentUserName") is None or str(
-        request.session.get("CurrentUserName")
-    ) != str(UserName):
+    if request.session.get("CurrentUserName") is None or str(request.session.get("CurrentUserName")) != str(UserName):
         return HttpResponseForbidden("You do not have permission to access this page.")
     user = get_object_or_404(User, UserName=UserName)
     if request.method == "POST":

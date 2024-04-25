@@ -17,9 +17,7 @@ class User(models.Model):
         ("Neg", "Negative"),
         ("Pos", "Positive"),
     )
-    Smoking = models.CharField(
-        choices=Smoking_ch, null=True, blank=True, max_length=256
-    )
+    Smoking = models.CharField(choices=Smoking_ch, null=True, blank=True, max_length=256)
 
     def __str__(self):
         return self.FirstName + " " + self.SecondName
@@ -27,11 +25,7 @@ class User(models.Model):
     @staticmethod
     def calculate_age(birthday):
         today = timezone.now()
-        return (
-            today.year
-            - birthday.year
-            - ((today.month, today.day) < (birthday.month, birthday.day))
-        )
+        return today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
 
     @staticmethod
     def is_valid_name(name: str):
@@ -59,12 +53,8 @@ class User(models.Model):
 
 
 class Message(models.Model):
-    Sender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="sent_messages"
-    )
-    Recipient = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="received_messages"
-    )
+    Sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_messages")
+    Recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="received_messages")
     Text = models.TextField()
     CreatedAt = models.DateTimeField(auto_now_add=True)
 
