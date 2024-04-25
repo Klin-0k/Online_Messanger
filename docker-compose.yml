@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:16.2-alpine3.19
-    container_name: ${POSTGRES_DB}
+    image: ${POSTGRES_DB_IMAGE}
+    container_name: ${POSTGRES_DB_CONTAINER}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - '${POSTGRES_PORT}:5432'
+      - '2222:5432'
     restart: always
     env_file:
       - .env
@@ -16,6 +16,21 @@ services:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}", "-h", "localhost"]
       timeout: 10s
       retries: 5
+
+  messenger:
+    image: ${MESSENGER_IMAGE}
+    container_name: ${MESSENGER_CONTAINER}
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./static:/app/static
+      - ./templates:/app/templates
+    ports:
+      - '3333:3333'
+    env_file:
+      - .env
 
 volumes:
   postgres_data:

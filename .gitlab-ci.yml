@@ -49,7 +49,15 @@ build:
 deploy:
   stage: deploy
   script:
+    - export MESSENGER_IMAGE=${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - export MESSENGER_CONTAINER=${CI_PROJECT_NAME}
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
-    - docker rm -f ${CI_PROJECT_NAME} || true
-    - docker run -d —name ${CI_PROJECT_NAME} -P 80:8000 -v db:/code/db ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker pull $MESSENGER_IMAGE
+    - docker-compose down || true
+    - docker-compose up -d
+  environment:
+    name: production
+    url: http://messenger.klinok.pro
+  only:
+    - main
+  when: manual

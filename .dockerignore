@@ -1,0 +1,15 @@
+.dockerignore
+Dockerfile
+.gitlab-ci.yml
+docker-compose.yml
+postgres_data
+static
+templates
+*.DS_Store
+.idea
+.git
+.pyt
+.pytest_cache
+venv
+README.md
+__pycache__

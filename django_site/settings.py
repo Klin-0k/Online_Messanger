@@ -83,15 +83,19 @@ WSGI_APPLICATION = 'django_site.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
+print('NAME', os.getenv('POSTGRES_DB'))
+print('USER', os.getenv('POSTGRES_USER'))
+print('PASSWORD', os.getenv('POSTGRES_PASSWORD'))
+print('HOST', os.getenv('POSTGRES_HOST'))
+print('PORT', os.getenv('POSTGRES_PORT'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD':  os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT'),
+        'NAME': os.getenv('POSTGRES_DB', 'postgres-messenger'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD':  os.getenv('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+        'PORT': os.getenv('POSTGRES_PORT', '2222'),
     }
 }
 
@@ -152,3 +156,20 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
