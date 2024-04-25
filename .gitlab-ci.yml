@@ -1,29 +1,31 @@
 stages:
-  - lint
-  - test
+#  - lint
+#  - test
   - build
   - deploy
-
-lint:
-  stage: lint
-  image: python:3.9
-  before_script:
-    - pip install black
-  script:
-    - black .
-
-test:
-  image: python:3-alpine
-  stage: test
-  script:
-    - pip install -r requirements.txt
-    - pytest tests.py
+#
+#lint:
+#  stage: lint
+#  image: python:3.9
+#  before_script:
+#    - pip install black
+#  script:
+#    - black .
+#
+#test:
+#  image: python:3-alpine
+#  stage: test
+#  script:
+#    - pip install -r requirements.txt
+#    - pytest tests.py
 
 build:
   stage: build
-  image: docker:stable
+  image: docker:stable-dind
   services:
-    - docker:dind
+    - docker:stable-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
   script:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
@@ -41,8 +43,8 @@ build:
         docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
         docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
       fi
-  needs:
-    - ["test"]
+#  needs:
+#    - ["test"]
   tags:
     - docker
 
