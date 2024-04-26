@@ -57,7 +57,7 @@ deploy:
     - export MESSENGER_IMAGE=${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - export MESSENGER_CONTAINER=${CI_PROJECT_NAME}
     - export POSTGRES_DATA=/app/postgres_data
-    - export ENV_FILE=/.penv
+    - export ENV_FILE=/app/.penv
     - export STATIC=/app/static
     - export TEMPLATES=/app/templates
     - rm -rf /app/static/* /app/templates/*
