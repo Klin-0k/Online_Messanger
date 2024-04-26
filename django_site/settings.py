@@ -92,11 +92,6 @@ WSGI_APPLICATION = "django_site.wsgi.application"
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-print("NAME", os.getenv("POSTGRES_DB"))
-print("USER", os.getenv("POSTGRES_USER"))
-print("PASSWORD", os.getenv("POSTGRES_PASSWORD"))
-print("HOST", os.getenv("POSTGRES_HOST"))
-print("PORT", os.getenv("POSTGRES_PORT"))
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -107,17 +102,6 @@ DATABASES = {
         "PORT": os.getenv("POSTGRES_PORT", "2222"),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres-messenger',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '2222',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

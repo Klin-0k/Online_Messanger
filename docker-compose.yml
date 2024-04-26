@@ -5,9 +5,7 @@ services:
     image: ${POSTGRES_DB_IMAGE}
     container_name: ${POSTGRES_DB_CONTAINER}
     volumes:
-      - /app/postgres_data:/var/lib/postgresql/data
-    ports:
-      - '2222:5432'
+      - ${POSTGRES_DATA}:/var/lib/postgresql/data
     restart: always
     env_file:
       - .env
@@ -24,14 +22,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-#    volumes:
-#      - ./static:/app/static
-#      - ./templates:/app/templates
+    volumes:
+      - ${STATIC}:/app/static
+      - ${TEMPLATES}:/app/templates
     ports:
       - '3333:3333'
     env_file:
       - .env
-      - /app/.penv
-
-#volumes:
-#  postgres_data:
+      - ${ENV_FILE}

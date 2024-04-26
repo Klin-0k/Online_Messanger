@@ -12,7 +12,7 @@ lint:
   script:
     - black --check --diff .
   tags:
-    - messenger
+    - shell
 
 test:
   image: python:3-alpine
@@ -22,7 +22,7 @@ test:
   script:
     - pytest tests.py
   tags:
-    - messenger
+    - shell
 
 build:
   stage: build
@@ -49,13 +49,19 @@ build:
   needs:
     - ["test"]
   tags:
-    - messenger
+    - dind
 
 deploy:
   stage: deploy
   script:
     - export MESSENGER_IMAGE=${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
     - export MESSENGER_CONTAINER=${CI_PROJECT_NAME}
+    - export POSTGRES_DATA=/app/postgres_data
+    - export STATIC=/app/static
+    - export TEMPLATES=/app/templates
+    - rm -rf /app/static/* /app/templates/*
+    - cp ./static /app/static
+    - cp ./templates /app/templates
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker pull $MESSENGER_IMAGE
     - docker-compose down || true

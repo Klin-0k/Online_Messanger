@@ -190,7 +190,8 @@ button:hover {
     background-color: #333;
     color: #fff;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
     padding-top: 3vh;
     padding-bottom: 3vh;
@@ -205,13 +206,14 @@ button:hover {
     font-size: 18px;
 }
 
-.bottom_block span {
-    font-weight: bold;
+.bottom_block p {
+    color: #fff;
+    margin: 0 20px;
+    font-size: 18px;
 }
 
-.bottom_block p {
-    margin: 0;
-    font-size: 1.2rem;
+.bottom_block span {
+    font-weight: bold;
 }
 
 .info_block {
