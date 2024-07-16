@@ -1,4 +1,9 @@
 venv
 .idea
-__pycache__
+*__pycache__
 password.py
+postgres_data
+datadump.json
+*DS_Store
+db.sqlite3
+old

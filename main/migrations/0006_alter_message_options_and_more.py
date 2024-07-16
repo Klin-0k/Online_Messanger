@@ -4,34 +4,33 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('main', '0005_alter_message_options'),
+        ("main", "0005_alter_message_options"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='message',
-            options={'ordering': ['-CreatedAt']},
+            name="message",
+            options={"ordering": ["-CreatedAt"]},
         ),
         migrations.RenameField(
-            model_name='message',
-            old_name='created_at',
-            new_name='CreatedAt',
+            model_name="message",
+            old_name="created_at",
+            new_name="CreatedAt",
         ),
         migrations.RenameField(
-            model_name='message',
-            old_name='recipient',
-            new_name='Recipient',
+            model_name="message",
+            old_name="recipient",
+            new_name="Recipient",
         ),
         migrations.RenameField(
-            model_name='message',
-            old_name='sender',
-            new_name='Sender',
+            model_name="message",
+            old_name="sender",
+            new_name="Sender",
         ),
         migrations.RenameField(
-            model_name='message',
-            old_name='text',
-            new_name='Text',
+            model_name="message",
+            old_name="text",
+            new_name="Text",
         ),
     ]

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: ${POSTGRES_DB_IMAGE}
+    container_name: ${POSTGRES_DB_CONTAINER}
+    volumes:
+      - ${POSTGRES_DATA}:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - .env
+    hostname: ${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  messenger:
+    image: ${MESSENGER_IMAGE}
+    container_name: ${MESSENGER_CONTAINER}
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ${STATIC}:/app/static
+      - ${TEMPLATES}:/app/templates
+    ports:
+      - '3333:3333'
+    env_file:
+      - .env
+      - ${ENV_FILE}

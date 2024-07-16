@@ -1,0 +1,78 @@
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+lint:
+  stage: lint
+  image: python:3.9
+  before_script:
+    - pip install black==24.4.1
+  script:
+    - black --check --diff .
+  tags:
+    - shell
+
+test:
+  image: python:3-alpine
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - pytest tests.py
+  tags:
+    - shell
+
+build:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
+
+    - if [[ "${CI_COMMIT_BRANCH}" == "${CI_DEFAULT_BRANCH}" ]]; then
+        docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:latest;
+        docker push ${CI_REGISTRY_IMAGE}:latest;
+      fi
+
+    - if [[ -z "${CI_COMMIT_TAG}" ]]; then
+        docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG};
+      else
+        docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
+        docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
+      fi
+  needs:
+    - ["test"]
+  tags:
+    - dind
+
+deploy:
+  stage: deploy
+  script:
+    - export MESSENGER_IMAGE=${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - export MESSENGER_CONTAINER=${CI_PROJECT_NAME}
+    - export POSTGRES_DATA=/postgres_data
+    - export ENV_FILE=/app/.penv
+    - export STATIC=/static
+    - export TEMPLATES=/templates
+    - rm -rf /app/static/* /app/templates/*
+    - cp -rf ./static/* /app/static
+    - cp -rf ./templates/* /app/templates
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker pull $MESSENGER_IMAGE
+    - docker-compose down || true
+    - docker-compose up -d
+  tags:
+    - messenger
+  variables:
+    SECRET_KEY: $SECRET_KEY
+    HOST: $HOST
+  environment:
+    name: production
+    url: http://messenger.klinok.pro
+#  only:
+#    - main
+  when: manual

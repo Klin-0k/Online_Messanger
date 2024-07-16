@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('main', '0002_alter_user_smoking'),
+        ("main", "0002_alter_user_smoking"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='Smoking',
-            field=models.CharField(blank=True, choices=[('Neut', 'Neutral'), ('Neg', 'Negative'), ('Pos', 'Positive')], max_length=256, null=True),
+            model_name="user",
+            name="Smoking",
+            field=models.CharField(
+                blank=True,
+                choices=[("Neut", "Neutral"), ("Neg", "Negative"), ("Pos", "Positive")],
+                max_length=256,
+                null=True,
+            ),
         ),
     ]
