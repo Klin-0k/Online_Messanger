@@ -1,5 +1,8 @@
 # Online_Messanger
 
+## Author
+- [Ivan Klinitski](https://t.me/Klin_0k)
+
 ## About: 
 This is the online messenger in which users can register and exchange messages with other users, the site has a beautiful and intuitive interface that is easy to understand
 

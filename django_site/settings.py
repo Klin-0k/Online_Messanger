@@ -36,8 +36,11 @@ DEBUG = True
 
 if is_password_in_file:
     ALLOWED_HOSTS = password.ALLOWED_HOSTS
+    CSRF_TRUSTED_ORIGINS = password.CSRF_TRUSTED_ORIGINS
+
 else:
     ALLOWED_HOSTS = [os.environ.get("HOST")]
+    CSRF_TRUSTED_ORIGINS = ["http://" + os.environ.get("HOST"), "https://" + os.environ.get("HOST")]
 
 
 # Application definition

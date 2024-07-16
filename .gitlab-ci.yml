@@ -33,13 +33,11 @@ build:
     - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
     - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
 
-    # Правило для основной ветки (master или main)
     - if [[ "${CI_COMMIT_BRANCH}" == "${CI_DEFAULT_BRANCH}" ]]; then
         docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:latest;
         docker push ${CI_REGISTRY_IMAGE}:latest;
       fi
 
-    # Правило для веток и тегов
     - if [[ -z "${CI_COMMIT_TAG}" ]]; then
         docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG};
       else
