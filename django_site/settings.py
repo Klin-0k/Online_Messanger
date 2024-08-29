@@ -32,7 +32,7 @@ else:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = is_password_in_file
+DEBUG = True
 
 if is_password_in_file:
     ALLOWED_HOSTS = password.ALLOWED_HOSTS
