@@ -4,75 +4,41 @@ stages:
   - build
   - deploy
 
-lint:
-  stage: lint
-  image: python:3.9
-  before_script:
-    - pip install black==24.4.1
-  script:
-    - black --check --diff .
-  tags:
-    - shell
+include:
+  - project: ${CI_TEMPLATES_PROJECT}
+    file: '/test/pytest-test.yml'
+    ref: ${CI_TEMPLATES_BRANCH}
+  - project: ${CI_TEMPLATES_PROJECT}
+    file: '/lint/black-lint.yml'
+    ref: ${CI_TEMPLATES_BRANCH}
+  - project: ${CI_TEMPLATES_PROJECT}
+    file: '/django-postgres-project/build.yml'
+    ref: ${CI_TEMPLATES_BRANCH}
+  - project: ${CI_TEMPLATES_PROJECT}
+    file: '/django-postgres-project/deploy.yml'
+    ref: ${CI_TEMPLATES_BRANCH}
 
-test:
-  image: python:3-alpine
+black-lint:
+  stage: lint
+  extends: .black-lint
+
+pytest-test:
   stage: test
-  before_script:
-    - pip install -r requirements.txt
-  script:
-    - pytest tests.py
-  tags:
-    - shell
+  extends: .pytest-test
 
 build:
   stage: build
-  image: docker:stable
-  services:
-    - docker:dind
-  script:
-    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} .
-
-    - if [[ "${CI_COMMIT_BRANCH}" == "${CI_DEFAULT_BRANCH}" ]]; then
-        docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:latest;
-        docker push ${CI_REGISTRY_IMAGE}:latest;
-      fi
-
-    - if [[ -z "${CI_COMMIT_TAG}" ]]; then
-        docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG};
-      else
-        docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
-        docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG};
-      fi
+  extends: .build
   needs:
-    - ["test"]
-  tags:
-    - dind
+    - ["pytest-test"]
 
 deploy:
   stage: deploy
-  script:
-    - export MESSENGER_IMAGE=${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
-    - export MESSENGER_CONTAINER=${CI_PROJECT_NAME}
-    - export POSTGRES_DATA=/postgres_data
-    - export ENV_FILE=/app/.penv
-    - export STATIC=/static
-    - export TEMPLATES=/templates
-    - rm -rf /app/static/* /app/templates/*
-    - cp -rf ./static/* /app/static
-    - cp -rf ./templates/* /app/templates
-    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
-    - docker pull $MESSENGER_IMAGE
-    - docker-compose down || true
-    - docker-compose up -d
+  extends: .deploy
   tags:
     - messenger
-  variables:
-    SECRET_KEY: $SECRET_KEY
-    HOST: $HOST
   environment:
     name: production
     url: http://messenger.klinok.pro
-#  only:
-#    - main
   when: manual
+  
