@@ -6,7 +6,7 @@
 ## About: 
 This is the online messenger in which users can register and exchange messages with other users, the site has a beautiful and intuitive interface that is easy to understand
 
-The application is currently deployed on [messenger.klinok.pro](https://messenger.klinok.pro)
+The application is currently deployed on [messenger.klinok.space](https://messenger.klinok.space)
 
 ## How to run:
 
